@@ -21,8 +21,15 @@ import { compress, deCompress } from "./modules/zipModule.js";
 import { hash } from "./modules/hashModule.js";
 
 const { EOL, homedir } = os;
-const arg = process.argv.splice(2);
-const userName = arg.length > 0 ? arg[0].split("=")[1] : "EmptyName";
+
+const args = process.argv;
+let userName = "";
+args.forEach((arg) => {
+  if (arg.includes("--username")) {
+    userName = arg.split("=")[1];
+    console.log(userName);
+  }
+});
 
 const rl = readline.createInterface({
   input,
@@ -86,7 +93,7 @@ rl.on("line", (answer) => {
       break;
     case "cat":
       if (answerArr.length > 3) {
-        console.log(answerArr)
+        console.log(answerArr);
         invalidInput();
         break;
       }
